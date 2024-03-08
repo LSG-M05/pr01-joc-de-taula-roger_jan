@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Main {
     public static String[][] player=new String[12][4];
+    public static int bons=0;
+    public static int llops=0;
 
     public static void main(String[] args) {
 
@@ -22,8 +24,8 @@ public class Main {
 
             System.out.println("Benvingut al joc del lobo de cachonegro\n" +
                     "Seleccioneu una de les opcions disponibles per a jugar: \n" +
-                    "1. 6 jugadors (2 llops 4 pueblerins)\n 2. 8 jugadors (2 llops 5 pueblerins 1 vident)\n" +
-                    "3. 12 jugadors (3 llops 7 pueblerins 1 bruixa 1 vident)\n 4. Sortir ");
+                    "1. 6 jugadors (2 llops 4 pueblerins)\n2. 8 jugadors (2 llops 5 pueblerins 1 vident)\n" +
+                    "3. 12 jugadors (3 llops 7 pueblerins 1 vident)\n4. Sortir ");
             op=input.nextInt();
 
         switch (op) {
@@ -44,9 +46,9 @@ public class Main {
         Random random=new Random();
         int random1=0, random2=0, random3=0, random4=0;
         for (int i=0; i<12; i++){
-            System.out.println("Introdueix el nom del jugador "+i+": ");
+            System.out.println("Introdueix el nom del jugador "+i+": (L'estil ha de ser 'Francesc')");
             player[i][0]=input.next();
-            player[i][1]="0";
+
         }
 
         do {
@@ -54,17 +56,30 @@ public class Main {
             random2 = random.nextInt(12);
             random3 = random.nextInt(12);
         }while (random1==random2 || random1==random3 || random2==random3);
-
         do{
             random4 = random.nextInt(12);
         }while (random4==random1 || random4==random2 || random4==random3);
-
         for (int i=0; i<12; i++){
-            System.out.println("Començem per el jugador "+player[i][0]+", quan estiguis sol clica 's' per a continuar");
-            String s=input.next();
+            if (i==random1 || i==random2 || i==random3){
+                player[i][1]="Llop";
+            } else if (i==random4) {
+                player[i][1]="Vident";
+            } else {
+                player[i][1]="Pueblerin";
+            }
         }
 
 
+        for (int i=0; i<12; i++){
+            System.out.println("El jugador "+player[i][0]+", quan estiguis sol clica 's' per a continuar");
+            String s=input.next();
+            System.out.println("Ets un "+player[i][1]);
+            for (int e=0; e<40; e++){
+                System.out.println("\n");
+            }
+        }
 
     }
+
+
 }
