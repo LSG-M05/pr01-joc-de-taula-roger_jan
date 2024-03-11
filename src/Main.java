@@ -154,7 +154,44 @@ public class Main {
         return eliminat;
     }
     public static void dia(){
-        System.out.println("Ara que ja es de dia, es el torn de les discussions, preneu-vos el vostre temps, i finalment redacteu");
+        boolean jugador=false;
+        String linchat;
+        Scanner input=new Scanner(System.in);
+
+        System.out.println("Ara que ja es de dia, es el torn de les discussions, preneu-vos el vostre temps");
+        do{
+            System.out.println("Aquí teniu una llista de qui queda viu");
+            for (int j=0; j<12; j++){
+                if (Objects.equals(player[j][2], "Viu")){
+                    System.out.println(player[j][0]);
+                }
+            }
+            System.out.println("Escriviu el nom de la persona que serà sacrificada: ");
+            linchat=input.next();
+
+            for (int i=0; i<12; i++){
+                if (Objects.equals(linchat, player[i][0])){
+                    player[i][2]="Mort";
+                    jugador=true;
+                    if (Objects.equals("Llop", player[i][1])){
+                        llops=llops-1;
+                        System.out.println("El jugador "+player[i][0]+" era un llop! Ja només queden "+llops);
+                    } else if (Objects.equals("Vident", player[i][1])){
+                        bons=bons-1;
+                        System.out.println("El jugador "+player[i][0]+" era la vident! Ara queden "+bons);
+                    } else if (Objects.equals("Pueblerin", player[i][1])){
+                        bons=bons-1;
+                        System.out.println("El jugador "+player[i][0]+" era un pueblerin! Ara queden "+bons);
+                    }
+                    break;
+                } else if (i==11){
+                    System.out.println("El nom introduït no es troba o està malament escrit");
+                }
+            }
+            for (int k=0; k<40;k++){
+                System.out.println("\n");
+            }
+        }while (!jugador);
     }
 
 }
