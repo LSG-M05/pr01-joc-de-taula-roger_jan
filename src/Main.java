@@ -128,6 +128,7 @@ public class Main {
 
                 for (int j=0; i<10; i++){
                     System.out.println("\n");
+
                 }
 
             }
