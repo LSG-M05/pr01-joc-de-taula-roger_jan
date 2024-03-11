@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    public static String[][] player = new String[6][2];
+    public static String[][] player = new String[12][3];
     public static int bons = 0;
     public static int llops = 0;
 
@@ -29,6 +29,7 @@ public class Main {
             case 1:
                 op1();
             case 2:
+                op2();
             case 3:
             case 4:
                 break;
@@ -40,7 +41,7 @@ public class Main {
         return op;
     }
 
-    public static void op1() {
+    public static void op1() { //opció 1: 6 jugadors 2 llops 4 pueblerins
         Scanner input = new Scanner(System.in);
         Random random = new Random();
         int random1 = 0, random2 = 0, random3 = 0;
@@ -50,16 +51,11 @@ public class Main {
             player[i][1] = "0";
         }
 
-
-
-        do {
+        do { //triar llops
             random1 = random.nextInt(6);
             random2 = random.nextInt(6);
         }while (random1==random2);
 
-        do{
-            random3 = random.nextInt(6);
-        }while (random3==random1 || random3==random2);
         for (int i=0; i<6; i++){
             if (i==random1 || i==random2){
                 player[i][1]="Llop";
@@ -72,6 +68,8 @@ public class Main {
             System.out.println(" Jugador "+player[i][0]+", quan no et vegi ningú escriu ok per saber el teu rol");
             String ok=input.next();
             System.out.println("Ets un "+player[i][1]);
+            System.out.println("Escriu ok per pasar al seguent jugador");
+            String okk=input.next();
 
             System.out.println();
             System.out.println();
@@ -89,9 +87,55 @@ public class Main {
             System.out.println();
             System.out.println();
             System.out.println();
+        }
+    }
+
+    public static void op2(){
+
+            Scanner input=new Scanner(System.in);
+            Random random=new Random();
+            int random1=0, random2=0, random3=0;
+            for (int i=0; i<8; i++){
+                System.out.println("Introdueix el nom del jugador "+i+": ");
+                player[i][0]=input.next();
+                player[i][1]="0";
+            }
+
+            do {
+                random1 = random.nextInt(8);
+                random2 = random.nextInt(8);
+            }while (random1==random2);
+
+            do{
+                random3 = random.nextInt(8);
+            }while (random3==random1 || random3==random2);
+            for (int i=0; i<8; i++){
+                if (i==random1 || i==random2){
+                    player[i][1]="Llop";
+                } else if (i==random3) {
+                    player[i][1]="Vident";
+                } else {
+                    player[i][1]="Pueblerin";
+                }
+            }
+
+            for (int i=0; i<8; i++){
+                System.out.println(" Jugador "+player[i][0]+ ", quan no et vegi ningú escriu ok per saber el teu rol");
+                String ok=input.next();
+                System.out.println("Ets un "+player[i][1]);
+                System.out.println("Escriu ok per pasar al seguent jugador");
+                String okk=input.next();
+
+                for (int j=0; i<10; i++){
+                    System.out.println("\n");
+                }
+
+            }
+
 
 
         }
     }
 
-}
+
+
