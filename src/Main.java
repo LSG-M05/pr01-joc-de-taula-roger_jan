@@ -21,7 +21,9 @@ public class Main {
     public static int menu(){
         Scanner input=new Scanner(System.in);
         String mort;
-        int op=0;
+        boolean end = false;
+
+        int op=0, random4;
 
             System.out.println("Benvingut al joc del lobo de cachonegro\n" +
                     "Seleccioneu una de les opcions disponibles per a jugar: \n" +
@@ -32,12 +34,23 @@ public class Main {
         switch (op) {
             case 1:
             case 2:
-            case 3:op3();
+            case 3:random4=op3();
                 do {
-                    mort=nit();
-                    System.out.println("El mort aquesta nit ha estat "+mort+", queden "+bons+" bons i "+llops+"llops");
+                    mort=nit(random4);
+                    System.out.println("El mort aquesta nit ha estat "+mort+", queden "+bons+" bons i "+llops+" llops");
+                    String useless=input.next();
                     dia();
-                }while(bons>llops || llops!=0);
+                    if (bons==llops){
+                        System.out.println("Victòria dels llops, enhorabona, aaauuuuu");
+                        end=true;
+                    } else if (llops==0){
+                        System.out.println("Victòria dels pueblerins, enhorabona!!");
+                        end=true;
+                    } else {
+                        System.out.println("Torna la nit, tothom a dormir");
+                    }
+                }while(!end);
+
             case 4:
                 break;
             default:
@@ -47,7 +60,7 @@ public class Main {
         }
         return op;
     }
-    public static void op3(){
+    public static int op3(){
         Scanner input=new Scanner(System.in);
         Random random=new Random();
         int random1=0, random2=0, random3=0, random4=-2;
@@ -90,47 +103,55 @@ public class Main {
                 System.out.println("\n");
             }
         }
-
+        return random4;
     }
-    public static String nit(){
+    public static String nit( int random4){
         boolean jugador=false;
         String eliminat, rol;
+        String useless;
 
         Scanner input=new Scanner(System.in);
         System.out.println("Es fa de nit, i tant els llops com la vident tenen aproximadament un minut cadascú per escollir amb qui utilitzen el seu rol");
-        System.out.println("Quan la vident estigui llesta que introudeixi algun parametre");
-        String useless=input.next();
 
-        do {
-            System.out.println("Torn de la vident, aqui tenim una llista dels noms: ");
-            for (int j = 0; j < 12; j++) {
-                if (Objects.equals(player[j][1], "Pueblerin") || Objects.equals(player[j][1], "Llop") && Objects.equals(player[j][2], "Viu")) {
-                    System.out.println(player[j][0]);
+
+        if (Objects.equals(player[random4][2], "Viu")) {
+            System.out.println("Quan la vident estigui llesta que introudeixi algun parametre");
+            useless=input.next();
+            do {
+
+
+                System.out.println("Torn de la vident, aqui tenim una llista dels noms: ");
+                for (int j = 0; j < 12; j++) {
+                    if (Objects.equals(player[j][1], "Pueblerin") && Objects.equals(player[j][2], "Viu") || Objects.equals(player[j][1], "Llop") && Objects.equals(player[j][2], "Viu")) {
+                        System.out.println(player[j][0]);
+                    }
                 }
-            }
-            System.out.println("De qui vols saber el seu rol? ");
-            rol=input.next();
-            for (int i=0; i<12; i++){
-                if (Objects.equals(rol, player[i][0])){
-                    System.out.println(player[i][1]);
-                    System.out.println("Quan ho tinguis introdueix algun parametre");
-                    useless=input.next();
-                    jugador=true;
-                    break;
-                } else if (i==11){
-                    System.out.println("El nom introduït no es troba o està malament escrit");
+                System.out.println("De qui vols saber el seu rol? ");
+                rol = input.next();
+                for (int i = 0; i < 12; i++) {
+                    if (Objects.equals(rol, player[i][0])) {
+                        System.out.println(player[i][1]);
+                        System.out.println("Quan ho tinguis introdueix algun parametre");
+                        useless = input.next();
+                        jugador = true;
+                        break;
+                    } else if (i == 11) {
+                        System.out.println("El nom introduït no es troba o està malament escrit");
+                    }
                 }
-            }
-        }while(!jugador);
+            } while (!jugador);
+        }
         jugador=false;
         for (int k=0; k<40;k++){
             System.out.println("\n");
         }
 
         do{
+            System.out.println("Moment de despertar els llops, un cop estiguin preparats introduïu cualsevol paràmetre");
+            useless=input.next();
             System.out.println("Els jugador disponibles son aquests: ");
             for (int j=0; j<12; j++){
-                if (Objects.equals(player[j][1], "Pueblerin") || Objects.equals(player[j][1], "Vident") && Objects.equals(player[j][2], "Viu")){
+                if (Objects.equals(player[j][1], "Pueblerin")  && Objects.equals(player[j][2], "Viu") || Objects.equals(player[j][1], "Vident") && Objects.equals(player[j][2], "Viu")){
                     System.out.println(player[j][0]);
                 }
             }
@@ -138,13 +159,13 @@ public class Main {
             eliminat=input.next();
 
             for (int i=0; i<12; i++){
-                if (Objects.equals(eliminat, player[i][0])){
+                if (Objects.equals(eliminat, player[i][0]) && Objects.equals(player[i][2], "Viu")){
                     player[i][2]="Mort";
                     bons=bons-1;
                     jugador=true;
                     break;
                 } else if (i==11){
-                    System.out.println("El nom introduït no es troba o està malament escrit");
+                    System.out.println("El nom introduït no es troba, està malament escrit o ja està morta");
                 }
             }
             for (int k=0; k<40;k++){
@@ -155,7 +176,7 @@ public class Main {
     }
     public static void dia(){
         boolean jugador=false;
-        String linchat;
+        String linchat, useless;
         Scanner input=new Scanner(System.in);
 
         System.out.println("Ara que ja es de dia, es el torn de les discussions, preneu-vos el vostre temps");
@@ -175,13 +196,16 @@ public class Main {
                     jugador=true;
                     if (Objects.equals("Llop", player[i][1])){
                         llops=llops-1;
-                        System.out.println("El jugador "+player[i][0]+" era un llop! Ja només queden "+llops);
+                        System.out.println("El jugador "+player[i][0]+" era un llop! Ja només queden "+llops+" bons");
+                        useless=input.next();
                     } else if (Objects.equals("Vident", player[i][1])){
                         bons=bons-1;
-                        System.out.println("El jugador "+player[i][0]+" era la vident! Ara queden "+bons);
+                        System.out.println("El jugador "+player[i][0]+" era la vident! Ara queden "+bons+" bons");
+                        useless=input.next();
                     } else if (Objects.equals("Pueblerin", player[i][1])){
                         bons=bons-1;
-                        System.out.println("El jugador "+player[i][0]+" era un pueblerin! Ara queden "+bons);
+                        System.out.println("El jugador "+player[i][0]+" era un pueblerin! Ara queden "+bons+" bons");
+                        useless=input.next();
                     }
                     break;
                 } else if (i==11){
