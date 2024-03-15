@@ -354,7 +354,7 @@ public class Main {
                         bons=bons-1;
                         System.out.println("El jugador "+player[i][0]+" era la vident! Ara queden "+bons+" bons");
                         useless=input.next();
-                    } else if (Objects.equals("Pueblerin", player[i][1])){
+                    } else if (Objects.equals("Pueblerin ", player[i][1])){
                         bons=bons-1;
                         System.out.println("El jugador "+player[i][0]+" era un pueblerin! Ara queden "+bons+" bons");
                         useless=input.next();
