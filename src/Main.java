@@ -564,7 +564,7 @@ public class Main {
 
         //Moment dels llops, amb una llista sense els seus noms i amb les persones vives, i aquests indiquen qui volen matar amb un control d'errors
         do{
-            System.out.println("Moment de despertar els llops, un cop estiguin preparats introduïu cualsevol paràmetre");
+            System.out.println("Moment de que despertin els llops, un cop estiguin preparats introduïu cualsevol paràmetre");
             useless=input.next();
             System.out.println("Els jugador disponibles son aquests: ");
             for (int j=0; j<12; j++){
