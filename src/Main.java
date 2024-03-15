@@ -326,7 +326,7 @@ public class Main {
 
         // i aquí tenim la part de la vident, per que se li imprimeixi la gent que queda viva i de aquella gent saber un rol per ronda.
         if (Objects.equals(player[vident][2], "Viu")) {
-        do {
+            do {
 
                 System.out.println("Torn de la vident, aqui tenim una llista dels noms: ");
                 for (int j = 0; j < 8; j++) {
@@ -385,8 +385,3 @@ public class Main {
         return eliminat;
     }
 }
-
-
-
-
-
