@@ -154,7 +154,7 @@ public class Main {
         String[] eliminat=new String[3];
         String rol;
         String useless;
-        String resp;
+        String resp="N";
         eliminat[1]="Null";
 
         Scanner input=new Scanner(System.in);
@@ -241,7 +241,7 @@ public class Main {
                 }
             }
 
-            if (matar) {
+            if (matar && Objects.equals(resp, "N")) {
                 System.out.println("I vols eliminar a algun jugador? (S/N)");
                 resp=input.next();
                 if (Objects.equals(resp, "S")){
